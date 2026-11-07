@@ -1,0 +1,96 @@
+.sketch {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.window {
+  fill: var(--color-card);
+  stroke: var(--color-lavender-strong);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+}
+
+.dot {
+  fill: var(--color-lavender-strong);
+}
+
+.block {
+  fill: var(--color-lavender);
+  stroke: var(--color-lavender-strong);
+  stroke-width: 2;
+}
+
+.line {
+  stroke: var(--color-lavender-strong);
+  stroke-width: 6;
+}
+
+/* The line being drawn right now, and the pencil drawing it. Both use the same
+   timing, so the pencil's point stays on the end of the line. A slow 7s loop:
+   draw, rest, then lift the pencil and start again. */
+.drawing {
+  stroke: var(--color-accent);
+  stroke-width: 6;
+  stroke-dasharray: 1;
+  animation: draw 7s ease-in-out infinite;
+}
+
+.pencil {
+  fill: var(--color-card);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+  animation: pencil 7s ease-in-out infinite;
+}
+
+.tip {
+  fill: var(--color-accent);
+  stroke: none;
+}
+
+.eraser {
+  fill: var(--color-lavender-strong);
+}
+
+@keyframes draw {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  60%,
+  85% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes pencil {
+  0% {
+    transform: translateX(-58px);
+    opacity: 1;
+  }
+  60%,
+  85% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-58px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawing,
+  .pencil {
+    animation: none;
+  }
+}

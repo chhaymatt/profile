@@ -1,0 +1,129 @@
+/*
+  Shared building blocks. Every card, pill and button on the site uses these, so they
+  always look the same. Components only add layout on top (grid spans, flex direction).
+
+  Colour comes from data-tone, never from a component's own CSS:
+    <article class="card" data-tone="mint">   <span class="pill" data-tone="sky">
+*/
+
+/* Card: one radius, one padding, one shadow, everywhere. */
+.card {
+  padding: var(--card-padding);
+  border: var(--card-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+  box-shadow: var(--shadow-card);
+  color: var(--color-ink);
+}
+
+/* Pill: industries, technologies, badges. */
+.pill {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--color-fill);
+  color: var(--color-ink);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Tones: the five pastels. Text on them is always ink. */
+[data-tone='lavender'] {
+  background: var(--color-lavender);
+}
+
+[data-tone='peach'] {
+  background: var(--color-peach);
+}
+
+[data-tone='mint'] {
+  background: var(--color-mint);
+}
+
+[data-tone='sky'] {
+  background: var(--color-sky);
+}
+
+[data-tone='butter'] {
+  background: var(--color-butter);
+}
+
+/* On a pastel card, neutral pills switch to white so they still stand out. */
+.card[data-tone] .pill:not([data-tone]) {
+  background: var(--color-card);
+}
+
+/* Button: the only things that react to hover and press. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: var(--space-3) 22px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-body);
+  font-weight: 600;
+  transition:
+    background-color 150ms ease,
+    transform 200ms var(--ease-spring);
+}
+
+.button:hover {
+  text-decoration: none;
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button-primary {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.button-primary:hover {
+  background: var(--color-accent-hover);
+}
+
+.button-secondary {
+  background: var(--color-lavender);
+  color: var(--color-accent);
+}
+
+.button-secondary:hover {
+  background: var(--color-lavender-strong);
+}
+
+/*
+  Cards ease in as they scroll into view: a short fade and a 12px rise, once.
+  Uses scroll-driven animation, so there's no JavaScript; browsers without it, and
+  anyone who prefers reduced motion, just see the cards in place.
+*/
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .card {
+      animation: card-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* External-link arrows nudge towards where they're going. */
+.arrow {
+  display: inline-block;
+  transition: transform 200ms var(--ease-spring);
+}
+
+a:hover .arrow,
+a:focus-visible .arrow {
+  transform: translate(2px, -2px);
+}

@@ -1,0 +1,26 @@
+/* Sits behind everything and scrolls with the page, so the terrain runs unbroken
+   from section to section. Cards and tiles are opaque and sit on top of it. */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* Fade out around the photo so the hero's own halo stays the star. */
+  mask-image: radial-gradient(ellipse 34rem 30rem at 50% 17rem, transparent 0 45%, #000 100%);
+}
+
+.line,
+.index {
+  fill: none;
+  stroke: var(--color-lavender-strong);
+  stroke-width: 1;
+  opacity: 0.55;
+}
+
+/* Every third ring is drawn a little heavier, like an index contour. */
+.index {
+  stroke-width: 1.5;
+  opacity: 0.8;
+}

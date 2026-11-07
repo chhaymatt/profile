@@ -1,0 +1,196 @@
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  /* Each side is padded on its own: iPhone Duo's safe areas aren't symmetrical. */
+  padding: env(safe-area-inset-top) max(var(--gutter), env(safe-area-inset-right)) 0
+    max(var(--gutter), env(safe-area-inset-left));
+  border-bottom: 1px solid var(--color-hairline);
+  background: color-mix(in srgb, var(--color-canvas) 78%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 var(--space-6);
+  max-width: var(--width-page);
+  min-height: 52px;
+  margin-inline: auto;
+}
+
+.name {
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.name:hover {
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-1) var(--space-6);
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-label);
+}
+
+.nav a {
+  display: inline-block;
+  padding-block: var(--space-3);
+  color: var(--color-ink-muted);
+  transition: color 150ms ease;
+}
+
+.nav a:hover {
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+/* The section you're reading. Fades in, so it doesn't flicker as you scroll. */
+.nav a[aria-current='location'] {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+/* Scroll progress, drawn like a route line: fills left to right as you scroll down.
+   Uses scroll-driven animation, so browsers without it just don't show it. */
+@supports (animation-timeline: scroll()) {
+  .bar::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: climb linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* The site-wide reduced-motion rule shortens every animation, which would break the
+   scroll timeline, so the line is simply left out for people who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .bar::after {
+    display: none;
+  }
+}
+
+@keyframes climb {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* The CV link is the one recruiters want most, so it's a small primary button. */
+.nav a.cv {
+  min-height: 32px;
+  padding: var(--space-1) var(--space-4);
+  color: var(--color-on-accent);
+  font-size: var(--text-label);
+}
+
+/* The menu button only appears on phones. */
+.toggle {
+  display: none;
+}
+
+/* Phones: the bar stays at the top, and the links fold into a menu. */
+@media (max-width: 47.99rem) {
+  .toggle {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-right: calc(var(--space-2) * -1);
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  /* Two lines that turn into a cross. */
+  .icon,
+  .icon::before {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 250ms var(--ease-spring);
+  }
+
+  .icon {
+    position: relative;
+    transform: translateY(-3px);
+  }
+
+  .icon::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+  }
+
+  .bar[data-open] .icon {
+    transform: translateY(0) rotate(45deg);
+  }
+
+  .bar[data-open] .icon::before {
+    transform: translateY(-6px) rotate(-90deg);
+  }
+
+  .menu {
+    display: grid;
+    grid-template-rows: 0fr;
+    width: 100%;
+    transition: grid-template-rows 300ms ease;
+  }
+
+  .bar[data-open] .menu {
+    grid-template-rows: 1fr;
+  }
+
+  .nav {
+    flex-direction: column;
+    gap: 0;
+    min-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    font-size: var(--text-body-lg);
+    transition: visibility 300ms;
+  }
+
+  .bar[data-open] .nav {
+    padding-bottom: var(--space-4);
+    visibility: visible;
+  }
+
+  .nav a {
+    display: block;
+    padding-block: var(--space-3);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+
+  .nav li + li {
+    border-top: 1px solid var(--color-hairline);
+  }
+
+  .nav a.cv {
+    display: inline-flex;
+    margin-top: var(--space-3);
+    font-size: var(--text-body);
+  }
+}

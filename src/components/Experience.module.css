@@ -1,0 +1,57 @@
+.cv {
+  margin: calc(var(--space-8) * -1) 0 var(--space-12);
+  text-align: center;
+  font-weight: 600;
+}
+
+.sheets {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* Each card switches between stacked and side-by-side rows based on its own width. */
+.sheet {
+  container: sheet / inline-size;
+}
+
+.subhead {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-title);
+  letter-spacing: -0.015em;
+}
+
+.rows {
+  margin: 0;
+}
+
+.row {
+  display: grid;
+  gap: var(--space-2);
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--color-hairline);
+}
+
+.row:first-child {
+  border-top: 0;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.value {
+  margin: 0;
+}
+
+/* Wide cards: label column on the left, values on the right, like Apple's tech specs. */
+@container sheet (min-width: 40rem) {
+  .row {
+    grid-template-columns: 18rem minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-6);
+  }
+}

@@ -1,0 +1,145 @@
+/* Shared text inside cards in this file. Card look comes from .card in ui.css. */
+
+.cardTitle {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-title);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.cardText {
+  color: var(--color-ink-muted);
+}
+
+[data-tone] > .cardText {
+  color: var(--color-ink);
+  opacity: 0.8;
+}
+
+.grow {
+  flex: 1;
+}
+
+/* Each hobby icon sits in the same soft lavender square, so the icon carries the identity. */
+.icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin-bottom: var(--space-6);
+  border-radius: var(--radius-md);
+  background: var(--color-lavender);
+}
+
+/* Outside work: four even hobby cards. */
+
+.hobbies {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.hobby {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 30rem) {
+  .hobbies {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 56rem) {
+  .hobbies {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Projects */
+
+.archive {
+  display: grid;
+  gap: var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project > ul {
+  margin-top: var(--space-4);
+}
+
+/* Screenshots sit on a lavender mount, so they belong to the theme without being
+   tinted. The coming-soon sketch uses the same mount. */
+.frame {
+  position: relative;
+  margin-bottom: var(--space-6);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-lavender);
+}
+
+.shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  border-radius: var(--radius-sm);
+  background: var(--color-fill);
+  box-shadow: 0 4px 14px rgb(30 20 80 / 0.12);
+  object-fit: cover;
+  object-position: top;
+}
+
+.frameBadge {
+  position: absolute;
+  top: calc(var(--space-3) + var(--space-2));
+  left: calc(var(--space-3) + var(--space-2));
+  background: var(--color-card);
+  color: var(--color-accent);
+  box-shadow: var(--shadow-card);
+}
+
+.projectLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  margin-top: var(--space-4);
+  font-weight: 600;
+}
+
+.projectNote {
+  color: var(--color-ink-muted);
+  font-weight: 400;
+}
+
+.more {
+  margin-top: var(--space-6);
+  text-align: center;
+  font-weight: 600;
+}
+
+.more a {
+  display: inline-block;
+  padding-block: var(--space-3);
+}
+
+@media (min-width: 40rem) {
+  .archive {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .archive {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

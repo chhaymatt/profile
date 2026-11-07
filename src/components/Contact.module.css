@@ -1,0 +1,181 @@
+.contact {
+  position: relative;
+  overflow: clip;
+  margin-top: var(--section-gap);
+  padding-block: var(--space-12);
+}
+
+.cornerMark {
+  position: absolute;
+  top: calc(var(--space-6) * -1);
+  right: calc(var(--space-6) * -1);
+}
+
+.title {
+  margin-bottom: var(--space-8);
+  font-size: var(--text-headline);
+  letter-spacing: -0.025em;
+  text-align: center;
+}
+
+/* The conversation sits straight on the card. */
+.window {
+  /* Roughly the finished conversation's height, so the card barely grows as it plays. */
+  min-height: 11rem;
+  max-width: 32rem;
+  margin-inline: auto;
+}
+
+.avatar {
+  border-radius: var(--radius-full);
+  background: var(--color-photo-backdrop);
+  object-fit: cover;
+  object-position: center top;
+}
+
+.incoming {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.avatar {
+  flex: none;
+  width: 30px;
+  height: 30px;
+}
+
+.bubbles {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-1);
+}
+
+/* Grey bubbles, like a received iMessage. */
+.bubble,
+.typing {
+  max-width: 26rem;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 20px;
+  background: var(--color-bubble);
+  color: var(--color-ink);
+  line-height: 1.4;
+}
+
+/* The tail sits on whichever bubble is currently last. */
+.bubble:nth-child(2),
+.typing,
+.bubble:first-child:has(+ .bubble[data-shown='false'] + .typing[data-shown='false']) {
+  border-bottom-left-radius: 6px;
+}
+
+/* The "…" typing indicator. */
+.typing {
+  display: inline-flex;
+  gap: 4px;
+  padding-block: 14px;
+}
+
+.typing span {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background: var(--color-ink-muted);
+  animation: dot 1.2s ease-in-out infinite;
+}
+
+.typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* The ways to reply, as sent bubbles on the right. */
+.replies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.reply {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 20px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: 600;
+  transition:
+    background-color 150ms ease,
+    transform 200ms var(--ease-spring);
+}
+
+.reply:hover {
+  background: var(--color-accent-hover);
+  text-decoration: none;
+}
+
+.reply:active {
+  transform: scale(0.97);
+}
+
+.replies li:last-child .reply {
+  border-bottom-right-radius: 6px;
+}
+
+/* Messages that haven't arrived yet take no space and can't be seen, but stay readable
+   by screen readers. Each pops in when its step comes. */
+.bubble[data-shown='false'],
+.replies[data-shown='false'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.typing[data-shown='false'] {
+  display: none;
+}
+
+.bubble[data-shown='true'],
+.typing[data-shown='true'] {
+  transform-origin: bottom left;
+  animation: arrive 350ms var(--ease-spring) both;
+}
+
+.replies[data-shown='true'] {
+  transform-origin: bottom right;
+  animation: arrive 350ms var(--ease-spring) both;
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.94);
+  }
+}
+
+@keyframes dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}

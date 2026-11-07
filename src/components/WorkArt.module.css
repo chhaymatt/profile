@@ -1,0 +1,65 @@
+/* Sits fully inside the card's top-right corner, with the same inset as the text,
+   and fades a little towards the text so it never competes with it. */
+.art {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  z-index: 0;
+  width: 168px;
+  height: 126px;
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-lavender-strong), var(--color-accent) 40%);
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(225deg, #000 40%, rgb(0 0 0 / 0.15) 90%);
+  mask-image: linear-gradient(225deg, #000 40%, rgb(0 0 0 / 0.15) 90%);
+}
+
+.soft {
+  stroke: var(--color-lavender-strong);
+}
+
+.accent {
+  stroke: var(--color-accent);
+}
+
+/* Narrow cards (phones, tablets, tight two-column layouts): the scene sits above the
+   text instead of beside it, so titles keep the full width. */
+@container work-card (max-width: 26rem) {
+  .art {
+    position: static;
+    width: 136px;
+    height: 102px;
+    margin-bottom: var(--space-1);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* The scene sketches itself in, stroke by stroke, as the card scrolls into view. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Every shape follows the whole drawing's position, so they draw in together. */
+    .art {
+      view-timeline: --work-art block;
+    }
+
+    .art > * {
+      stroke-dasharray: 1;
+      animation: sketch linear both;
+      animation-timeline: --work-art;
+      animation-range: entry 20% cover 45%;
+    }
+  }
+}
+
+@keyframes sketch {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}

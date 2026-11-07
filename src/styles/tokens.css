@@ -1,0 +1,97 @@
+/* Design tokens. Source of truth: DESIGN.md. Keep the two in sync. */
+
+:root {
+  color-scheme: light dark;
+
+  --color-ink: #1d1d1f;
+  --color-ink-muted: #6e6e73;
+  --color-canvas: #fbfbfd;
+  --color-card: #ffffff;
+  --color-hairline: #e8e8ed;
+  /* Indigo blue: the original site's navy, lifted so it reads as a colour next to black text. */
+  --color-accent: #3b4bb8;
+  --color-accent-hover: #2f3d99;
+  --color-on-accent: #ffffff;
+  --color-lavender: #eee8ff;
+  --color-lavender-strong: #d9ccff;
+  --color-peach: #ffeadf;
+  --color-mint: #ddf4e7;
+  --color-sky: #e1eeff;
+  --color-butter: #fff3c9;
+  --color-fill: #f2f2f7;
+  /* Behind the cut-out portrait. Stays fairly light in dark mode so the photo doesn't sink. */
+  --color-photo-backdrop: #eee8ff;
+  /* A received message bubble, as in Apple's Messages. */
+  --color-bubble: #e9e9eb;
+
+  --font-display: ui-rounded, 'SF Pro Rounded', 'Nunito Variable', system-ui, sans-serif;
+  --font-body:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  --text-display: clamp(2.75rem, 1.6rem + 5vw, 4.5rem);
+  --text-headline: clamp(2rem, 1.5rem + 2.2vw, 2.75rem);
+  --text-title: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-body-lg: clamp(1.125rem, 1.05rem + 0.4vw, 1.3125rem);
+  --text-body: 1.0625rem;
+  --text-label: 0.875rem;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-full: 999px;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
+  --card-border: 1px solid transparent;
+  --card-padding: var(--space-6);
+
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --width-page: 70rem;
+  --width-measure: 40rem;
+  --gutter: var(--space-4);
+  --section-gap: 80px;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --gutter: var(--space-6);
+    --card-padding: var(--space-8);
+    --section-gap: var(--space-32);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-ink: #f5f5f7;
+    --color-ink-muted: #a1a1a6;
+    --color-canvas: #000000;
+    --color-card: #1c1c1e;
+    --color-hairline: #2c2c2e;
+    --color-accent: #a9b4ff;
+    --color-accent-hover: #c2caff;
+    --color-on-accent: #10142b;
+    --color-lavender: #2a2440;
+    --color-lavender-strong: #4a3f73;
+    --color-peach: #3a2a22;
+    --color-mint: #1d3328;
+    --color-sky: #1c2a3d;
+    --color-butter: #3a3420;
+    --color-fill: #2c2c2e;
+    --color-photo-backdrop: #b9adf0;
+    --color-bubble: #3a3a3c;
+
+    --shadow-card: none;
+    --card-border: 1px solid var(--color-hairline);
+  }
+}

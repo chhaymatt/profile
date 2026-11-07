@@ -1,0 +1,74 @@
+.grid {
+  display: grid;
+  gap: var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+/* Positioned so the industry drawing can sit in the corner, behind the text. */
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: 100%;
+  /* clip, not hidden: hidden would make the card its own scroll area, and the
+     drawing's scroll-in animation would think it was always in view. */
+  overflow: clip;
+  /* Lets the card and its drawing adapt to the card's own width, not the screen's. */
+  container: work-card / inline-size;
+}
+
+/* Text sits above the drawing, with a soft glow in the card colour so any line that
+   runs behind a word fades out around it. */
+.item > :not(svg) {
+  position: relative;
+  text-shadow:
+    0 0 4px var(--color-card),
+    0 0 10px var(--color-card),
+    0 0 18px var(--color-card);
+}
+
+/* Keep the text clear of the 168px drawing in the corner. */
+.industry,
+.title,
+.summary {
+  max-width: calc(100% - 172px);
+}
+
+.industry {
+  color: var(--color-accent);
+  font-size: var(--text-label);
+  font-weight: 600;
+}
+
+.title {
+  min-height: 2.4em;
+  font-size: var(--text-title);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.summary {
+  flex: 1;
+  margin-bottom: var(--space-2);
+  color: var(--color-ink-muted);
+}
+
+@container work-card (max-width: 26rem) {
+  .industry,
+  .title,
+  .summary {
+    max-width: none;
+  }
+
+  .title {
+    min-height: 0;
+  }
+}
+
+@media (min-width: 56rem) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

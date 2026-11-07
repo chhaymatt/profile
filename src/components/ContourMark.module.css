@@ -1,0 +1,19 @@
+.mark {
+  width: 120px;
+  height: 120px;
+  overflow: visible;
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-lavender-strong), var(--color-accent) 30%);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.index {
+  stroke-width: 2;
+}
+
+.summit {
+  fill: var(--color-accent);
+  stroke: none;
+}
